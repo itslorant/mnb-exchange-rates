@@ -51,13 +51,17 @@
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:live": "MNB_LIVE=1 vitest run test/live.test.ts"
+    "test:live": "MNB_LIVE=1 vitest run test/live.test.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "fast-xml-parser": "^5.12.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@types/node": "^26.6.6",
+    "husky": "^9.1.7",
     "tsdown": "^0.23.7",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"

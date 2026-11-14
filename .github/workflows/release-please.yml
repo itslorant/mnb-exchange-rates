@@ -1,0 +1,22 @@
+name: Release Please
+
+# Keeps a release PR open that bumps the version and updates CHANGELOG.md from
+# the conventional commits on main. Merging that PR tags the commit and creates
+# the GitHub release. Publishing to npm is deliberately not part of this yet.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
