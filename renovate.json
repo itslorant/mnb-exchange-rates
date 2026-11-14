@@ -6,6 +6,11 @@
   "internalChecksFilter": "strict",
   "packageRules": [
     {
+      "description": "Supported Node versions are a deliberate choice, not something to auto-bump",
+      "matchDepNames": ["node"],
+      "enabled": false
+    },
+    {
       "matchDepTypes": ["devDependencies"],
       "groupName": "dev dependencies",
       "automerge": true,
