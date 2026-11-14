@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { createMnbClient } from '../src/index.js';
+import { createMnbClient, DEFAULT_ENDPOINT } from '../src/index.js';
 
 // Hits the real MNB service. Run with `pnpm test:live`.
 describe.skipIf(!process.env['MNB_LIVE'])('live MNB service', () => {
@@ -19,6 +19,17 @@ describe.skipIf(!process.env['MNB_LIVE'])('live MNB service', () => {
     });
     expect(days.length).toBeGreaterThan(0);
     expect(days[0]!.rates.map((r) => r.currency).sort()).toEqual(['EUR', 'JPY']);
+  });
+
+  // Canary: this is expected to keep passing. If it fails, MNB has started
+  // serving SOAP over HTTPS, so DEFAULT_ENDPOINT should switch to https://.
+  it('still answers SOAP over HTTP only', async () => {
+    const response = await fetch(DEFAULT_ENDPOINT.replace('http:', 'https:'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/xml; charset=utf-8' },
+      body: '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body/></s:Envelope>',
+    });
+    expect(response.status, 'HTTPS now works: make it the default endpoint').toBe(404);
   });
 
   it('exposes info, currencies, units and interval', async () => {
