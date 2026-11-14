@@ -2,7 +2,6 @@
   "name": "@itslorant/mnb-exchange-rates",
   "version": "0.1.0",
   "description": "Typed client for the Hungarian National Bank (MNB) exchange rate SOAP API",
-  "private": true,
   "license": "MIT",
   "author": "itslorant",
   "repository": {
@@ -52,7 +51,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:live": "MNB_LIVE=1 vitest run test/live.test.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm build"
   },
   "dependencies": {
     "fast-xml-parser": "^5.12.1"
@@ -66,5 +66,8 @@
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   },
-  "packageManager": "pnpm@10.3.0"
+  "packageManager": "pnpm@10.3.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }
